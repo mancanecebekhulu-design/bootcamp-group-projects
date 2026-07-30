@@ -56,4 +56,4 @@ python -m unittest test_blackjack.py
 ```
 
 ## Youtube Video Explaining Blackjack
-Check out [How to Play Blackjack: Learn from an Expert](https://www.youtube.com/watch?v=UXmbwvr3aKk).
+Check out [How to Play Blackjack: Learn from an Expert]//www.youtube.co(https:m/watch?v=UXmbwvr3aKk).
