@@ -114,8 +114,13 @@ def apply_action(state, action, next_card=None):
         return ...
  
     if action == "stand":
+        return {
+        "hand": state["hand"],
+        "dealer_upcard": state["dealer_upcard"],
+        "first": False,
+        "stood": True
 
-        return ...
+        return state
  
     if action == "double":
         new_hand = hand.copy()
