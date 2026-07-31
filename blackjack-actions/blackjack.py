@@ -115,7 +115,6 @@ def apply_action(state, action, next_card=None):
         result["bet_multiplier"] = 2 
         return result 
 
-        return ...
  
     if action == "surrender":
 
