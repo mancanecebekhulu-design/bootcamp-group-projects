@@ -98,62 +98,57 @@ def _hand_result(hand, dealer_upcard, first):
  
  
 def apply_action(state, action, next_card=None):
-
     legal = generate_actions(state)
 
     if action not in legal:
-
         raise ValueError(f"{action!r} is not legal here (legal actions: {legal})")
- 
+
     hand = state["hand"]
-
     dealer_upcard = state["dealer_upcard"]
- 
+
     if action == "hit":
+        new_hand = hand.copy()
+        new_hand.append(next_card)
+        return _hand_result(
+            new_hand,
+            dealer_upcard,
+            first=False
+        )
 
-        return ...
- 
     if action == "stand":
+        return _hand_result(
+            hand,
+            dealer_upcard,
+            first=False
+        )
 
-        return ...
- 
     if action == "double":
         new_hand = hand.copy()
         new_hand.append(next_card)
-        result = hand_result(
+
+        result = _hand_result(
             new_hand,
             dealer_upcard,
             first=False
         )
         result["bet_multiplier"] = 2
-        return result 
-
+        return result
 
     if action == "insurance":
-        
         result = _hand_result(hand, dealer_upcard, first=True)
         result["insurance"] = True
         return result
 
- 
     if action == "surrender":
-
         result = _hand_result(hand, dealer_upcard, first=False)
-
         result["surrendered"] = True
-
         result["bet_multiplier"] = 0.5
-
         return result
- 
-    if action == "split":
 
+    if action == "split":
         card_a, card_b = hand[0], hand[1]
 
         hand_a = _hand_result([card_a], dealer_upcard, first=True)
-
         hand_b = _hand_result([card_b], dealer_upcard, first=True)
 
         return hand_a, hand_b
-        
- 
