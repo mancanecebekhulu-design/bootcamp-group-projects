@@ -95,86 +95,44 @@ def _hand_result(hand, dealer_upcard, first):
         "busted": total > 21,
 
     }
- 
- 
 def apply_action(state, action, next_card=None):
-
     legal = generate_actions(state)
-
     if action not in legal:
-
         raise ValueError(f"{action!r} is not legal here (legal actions: {legal})")
- 
+
     hand = state["hand"]
-
     dealer_upcard = state["dealer_upcard"]
- 
+
     if action == "hit":
-        new_state["hand"].append(next_card)
-
-    elif action == "stand":
-        pass 
-
-    elif action == "double":
-        new_state["hand"].append(next_card)
-
-    elif action == "split":
-        new_state["hand"] = [state["hand"][0], next_card]
-
-    elif action == "surrender":
-        pass  
-
-    elif action == "insurance":
-        pass  
-
-    return new_state 
-
-
- 
-    if action == "stand":
-        return {
-        "hand": state["hand"],
-        "dealer_upcard": state["dealer_upcard"],
-        "first": False,
-        "stood": True
-
-        return state
- 
-    if action == "double":
         new_hand = hand.copy()
         new_hand.append(next_card)
-        result = hand_result(
-            new_hand,
-            dealer_upcard,
-            first=False
-        )
+        return _hand_result(new_hand, dealer_upcard, first=False)
+
+    elif action == "stand":
+        result = _hand_result(hand, dealer_upcard, first=False)
+        result["stood"] = True
+        return result
+
+    elif action == "double":
+        new_hand = hand.copy()
+        new_hand.append(next_card)
+        result = _hand_result(new_hand, dealer_upcard, first=False)
         result["bet_multiplier"] = 2
-        return result 
+        return result
 
+    elif action == "surrender":
+        result = _hand_result(hand, dealer_upcard, first=False)
+        result["surrendered"] = True
+        result["bet_multiplier"] = 0.5
+        return result
 
-    if action == "insurance":
-        
+    elif action == "insurance":
         result = _hand_result(hand, dealer_upcard, first=True)
         result["insurance"] = True
         return result
 
- 
-    if action == "surrender":
-
-        result = _hand_result(hand, dealer_upcard, first=False)
-
-        result["surrendered"] = True
-
-        result["bet_multiplier"] = 0.5
-
-        return result
- 
-    if action == "split":
-
-        card_a, card_b = hand[0], hand[1]
-
+    elif action == "split":
+        card_a, card_b = hand
         hand_a = _hand_result([card_a], dealer_upcard, first=True)
-
         hand_b = _hand_result([card_b], dealer_upcard, first=True)
-
         return hand_a, hand_b
