@@ -104,6 +104,16 @@ def apply_action(state, action, next_card=None):
         return ...
  
     if action == "double":
+        new_hand = hand.copy()
+        new_hand.append(next_card)
+
+        result = _hand_result(
+            new_hand,
+            dealer_upcard,
+            first=False
+        )
+        result["bet_multiplier"] = 2 
+        return result 
 
         return ...
  
