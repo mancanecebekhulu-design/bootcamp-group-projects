@@ -128,6 +128,13 @@ def apply_action(state, action, next_card=None):
         result["bet_multiplier"] = 2
         return result 
 
+
+    if action == "insurance":
+        
+        result = _hand_result(hand, dealer_upcard, first=True)
+        result["insurance"] = True
+        return result
+
  
     if action == "surrender":
 
@@ -148,12 +155,5 @@ def apply_action(state, action, next_card=None):
         hand_b = _hand_result([card_b], dealer_upcard, first=True)
 
         return hand_a, hand_b
- 
-    if action == "insurance":
-
-        result = _hand_result(hand, dealer_upcard, first=True)
-        result["insurance"] = True
-        return result
-
         
  
