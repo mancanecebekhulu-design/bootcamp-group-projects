@@ -110,22 +110,22 @@ def apply_action(state, action, next_card=None):
     dealer_upcard = state["dealer_upcard"]
  
     if action == "hit":
-    new_state["hand"].append(next_card)
+        new_state["hand"].append(next_card)
 
     elif action == "stand":
-    pass 
+        pass 
 
     elif action == "double":
-    new_state["hand"].append(next_card)
+        new_state["hand"].append(next_card)
 
     elif action == "split":
-    new_state["hand"] = [state["hand"][0], next_card]
+        new_state["hand"] = [state["hand"][0], next_card]
 
     elif action == "surrender":
-    pass  
+        pass  
 
     elif action == "insurance":
-    pass  
+        pass  
 
     return new_state 
 
