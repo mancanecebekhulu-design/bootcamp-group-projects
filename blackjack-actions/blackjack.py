@@ -44,6 +44,14 @@ def generate_actions(state):
     hand = state["hand"]
 
     actions = ["hit", "stand"]
+    if action = "stand"
+        return {
+            "hand": state["hand"]
+            "dealer": state["dealer"]
+            "first": False
+            "stood": True
+    if action =="stand":
+        return state
  
     if state["first"]:
 
