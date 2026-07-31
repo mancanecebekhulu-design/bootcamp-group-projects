@@ -152,5 +152,9 @@ def apply_action(state, action, next_card=None):
  
     if action == "insurance":
 
-        return ...
+        result = _hand_result(hand, dealer_upcard, first=True)
+        result["insurance"] = True
+        return result
+
+        
  
